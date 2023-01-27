@@ -12,7 +12,7 @@ interface CategoryProps {
 
 function Navbar({ category, setCategory }: CategoryProps) {
   const navigate = useNavigate();
-  const [isSign, setIsSign] = useState(null);
+  const [isSign, setIsSign] = useState<null | boolean>(null);
 
   setTimeout(() => {
     if (authService.currentUser) {

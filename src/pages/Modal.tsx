@@ -8,6 +8,7 @@ import { Snippet } from '../components/YoutubeBoard';
 type ModalProps = {
   modalPlayItem: Snippet | null;
   closeReleasePopup: () => void;
+  releaseModal?: boolean;
 };
 
 const Modal = ({ closeReleasePopup, modalPlayItem }: ModalProps) => {

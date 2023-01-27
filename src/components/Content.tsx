@@ -99,7 +99,7 @@ export default function Content({ item, contents }: ContentProps) {
               autoFocus={true}
               value={editContentValue}
               placeholder="댓글을 작성해주세요."
-              maxLength="32"
+              maxLength={32}
             />
           </>
         ) : (
