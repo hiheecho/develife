@@ -10,10 +10,7 @@ type ModalProps = {
   closeReleasePopup: () => void;
 };
 
-const Modal = (
-  { closeReleasePopup }: ModalProps,
-  { modalPlayItem }: ModalProps,
-) => {
+const Modal = ({ closeReleasePopup, modalPlayItem }: ModalProps) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // useState(authService.currentUser); boolean값으로 변해서 false로 바꿈
   useEffect(() => {

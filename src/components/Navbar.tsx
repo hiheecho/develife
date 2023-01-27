@@ -2,14 +2,14 @@ import styled from '@emotion/styled';
 import Button from './Button';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../firebase';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 interface CategoryProps {
   category: string;
-  setCategory: React.Dispatch<React.SetStateAction<string>>;
+  setCategory: any;
 }
 
-function Navbar({ category }: CategoryProps, { setCategory }: CategoryProps) {
+function Navbar({ category, setCategory }: CategoryProps) {
   const navigate = useNavigate();
 
   const nowCategoryStyle: React.CSSProperties = {

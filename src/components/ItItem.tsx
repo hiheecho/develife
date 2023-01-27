@@ -12,13 +12,13 @@ type CategoryProps = {
   closeReleasePopup: () => void;
 };
 
-const ItItem = (
-  { ItItemPlayList }: CategoryProps,
-  { clickImg }: CategoryProps,
-  { releaseModal }: CategoryProps,
-  { modalPlayItem }: CategoryProps,
-  { closeReleasePopup }: CategoryProps,
-) => {
+const ItItem = ({
+  ItItemPlayList,
+  clickImg,
+  releaseModal,
+  modalPlayItem,
+  closeReleasePopup,
+}: CategoryProps) => {
   return (
     <>
       <CateMainWarpper>

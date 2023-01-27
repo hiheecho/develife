@@ -22,7 +22,7 @@ const Signup = () => {
     /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/,
   );
 
-  const signUp = async (e) => {
+  const signUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await createUserWithEmailAndPassword(
       authService,
@@ -153,9 +153,6 @@ const Signup = () => {
           </div>
 
           <SignButton
-            isdisabled={
-              !isValidateEmail || !(registerPasswordCheck === registerPassword)
-            }
             disabled={
               !isValidateEmail || !(registerPasswordCheck === registerPassword)
             }
@@ -270,8 +267,8 @@ const Overlay = styled.div`
 
 const SignButton = styled.button`
   margin-top: 10px;
-  background-color: ${({ isdisabled }) =>
-    isdisabled ? 'rgba(248, 47, 98, 0.5)' : 'rgb(248, 47, 98)'};
+  background-color: ${({ disabled }) =>
+    disabled ? 'rgba(248, 47, 98, 0.5)' : 'rgb(248, 47, 98)'};
   color: rgb(255, 255, 255);
   font-weight: 700;
   letter-spacing: -0.1px;

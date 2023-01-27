@@ -7,7 +7,7 @@ interface ItemProps {
   clickImg(snippet: Snippet): void;
 }
 
-const YoutubeContent = ({ item }: ItemProps, { clickImg }: ItemProps) => {
+const YoutubeContent = ({ item, clickImg }: ItemProps) => {
   return (
     <YoutubeBox key={item.id}>
       <YoutubeImg

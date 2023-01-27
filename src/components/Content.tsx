@@ -11,10 +11,7 @@ type ContentProps = {
   contents: Comment[];
 };
 
-export default function Content(
-  { item }: ContentProps,
-  { contents }: ContentProps,
-) {
+export default function Content({ item, contents }: ContentProps) {
   const [dropDown, setDropDown] = useState(false);
   const [editContentValue, setEditContentValue] = useState(item.text);
 
