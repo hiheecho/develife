@@ -4,13 +4,22 @@ import { IoChevronDownCircle, IoCut, IoCloseCircle } from 'react-icons/io5';
 import { useState } from 'react';
 import { authService, dbService } from '../firebase';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { Comment } from './ContentsList';
 
-export default function Content({ item, contents }) {
+type ContentProps = {
+  item: Comment;
+  contents: Comment[];
+};
+
+export default function Content(
+  { item }: ContentProps,
+  { contents }: ContentProps,
+) {
   const [dropDown, setDropDown] = useState(false);
   const [editContentValue, setEditContentValue] = useState(item.text);
 
   // Content delete하기
-  const deleteContent = async (id) => {
+  const deleteContent = async (id: string) => {
     let con = window.confirm('정말 삭제하시겠습니까?');
     if (con === true) {
       await deleteDoc(doc(dbService, 'test', id));
@@ -21,15 +30,15 @@ export default function Content({ item, contents }) {
     }
   };
   // Content edit하기
-  const Edit = async (id) => {
+  const Edit = async (id: string) => {
     const idx = contents.findIndex((item) => item.id === id);
     await updateDoc(doc(dbService, 'test', id), {
       isEdit: !contents[idx].isEdit,
     });
   };
 
-  const EditContent = async (id) => {
-    const editContent = editContentValue.trim();
+  const EditContent = async (id: string) => {
+    const editContent = editContentValue?.trim();
     if (!editContent) {
       setEditContentValue('');
       return alert('입력한 글이 없습니다.');
@@ -41,7 +50,7 @@ export default function Content({ item, contents }) {
     setDropDown(false);
   };
 
-  const EditCancel = async (id) => {
+  const EditCancel = async (id: string) => {
     await updateDoc(doc(dbService, 'test', id), {
       isEdit: false,
     });
@@ -49,7 +58,8 @@ export default function Content({ item, contents }) {
     setEditContentValue(item.text);
   };
 
-  const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //useState(authService.currentUser);
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
@@ -99,7 +109,7 @@ export default function Content({ item, contents }) {
           <>
             <ContentsId>{item?.userName}</ContentsId>
             {/*(if(authService.currentUser.uid === item.userId)*/}
-            {isLoggedIn && authService.currentUser.uid === item.userId ? (
+            {isLoggedIn && authService.currentUser?.uid === item.userId ? (
               <IoChevronDownCircle
                 onClick={() => {
                   setDropDown(!dropDown);

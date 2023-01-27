@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import YoutubeBoard from '../components/YoutubeBoard';
 import Navbar from '../components/Navbar';
 
 function Main() {
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState<string>('');
 
   return (
     <MainContainer>

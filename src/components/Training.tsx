@@ -2,34 +2,43 @@ import React from 'react';
 import Modal from '../pages/Modal';
 import YoutubeContent from './YoutubeContent';
 import styled from '@emotion/styled';
+import { Snippet, Items } from './YoutubeBoard';
 
-const Programing = ({
-  ProgrammingPlayList,
-  clickImg,
-  releaseModal,
-  modalPlayItem,
-  closeReleasePopup,
-}) => {
+type CategoryProps = {
+  HometrainningPlayList: Items;
+  clickImg: (value: Snippet) => void;
+  releaseModal: boolean;
+  modalPlayItem: Snippet | null;
+  closeReleasePopup: () => void;
+};
+
+const Training = (
+  { HometrainningPlayList }: CategoryProps,
+  { clickImg }: CategoryProps,
+  { releaseModal }: CategoryProps,
+  { modalPlayItem }: CategoryProps,
+  { closeReleasePopup }: CategoryProps,
+) => {
   return (
     <>
       <CateMainWarpper>
         <YoutubeBox>
           <YoutubeImg
-            src={`${ProgrammingPlayList.items[0].snippet.thumbnails.maxres.url}`}
-            alt={`${ProgrammingPlayList.items[0].snippet.title}`}
-            onClick={() => clickImg(ProgrammingPlayList.items[0].snippet)}
+            src={`${HometrainningPlayList.items[0].snippet.thumbnails.maxres.url}`}
+            alt={`${HometrainningPlayList.items[0].snippet.title}`}
+            onClick={() => clickImg(HometrainningPlayList.items[0].snippet)}
           />
         </YoutubeBox>
         <DescriptionBox>
-          <DescriptionTitle>무료 코딩강의를 찾으세요 ?</DescriptionTitle>
+          <DescriptionTitle>개발자도 체력이 필수 !</DescriptionTitle>
           <DescriptionContent>
-            배우기 쉬운 유튜브 코딩강의로 코딩실력 키우자 !
+            ★ 홈트레이닝 하면서 집에서 체력단련하기 ★
           </DescriptionContent>
         </DescriptionBox>
       </CateMainWarpper>
       <YoutubeList>
-        {ProgrammingPlayList.items
-          .filter((item) => item.id !== ProgrammingPlayList.items[0].id)
+        {HometrainningPlayList.items
+          .filter((item) => item.id !== HometrainningPlayList.items[0].id)
           .map((item) => (
             <YoutubeContent key={item.id} item={item} clickImg={clickImg} />
           ))}
@@ -46,7 +55,7 @@ const Programing = ({
 const YoutubeList = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 35px;
+  grid-gap: 25px;
 `;
 const YoutubeBox = styled.div`
   box-shadow: 0px 0px 10px #fff;
@@ -56,7 +65,6 @@ const YoutubeBox = styled.div`
 `;
 const YoutubeImg = styled.img`
   width: 100%;
-  height: 100%;
   cursor: pointer;
 `;
 const CateMainWarpper = styled.div`
@@ -83,4 +91,4 @@ const DescriptionContent = styled.p`
   text-align: center;
   line-height: 32px;
 `;
-export default Programing;
+export default Training;

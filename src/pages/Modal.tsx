@@ -3,9 +3,19 @@ import styled from '@emotion/styled';
 import AddForm from '../components/AddForm';
 import ContentsList from '../components/ContentsList';
 import { authService } from '../firebase';
+import { Snippet } from '../components/YoutubeBoard';
 
-const Modal = ({ closeReleasePopup, modalPlayItem }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
+type ModalProps = {
+  modalPlayItem: Snippet | null;
+  closeReleasePopup: () => void;
+};
+
+const Modal = (
+  { closeReleasePopup }: ModalProps,
+  { modalPlayItem }: ModalProps,
+) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // useState(authService.currentUser); boolean값으로 변해서 false로 바꿈
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
@@ -26,14 +36,14 @@ const Modal = ({ closeReleasePopup, modalPlayItem }) => {
             <YoutubeContents>
               <YoutubePlayer
                 id="ytplayer"
-                type="text/html"
-                src={`https://www.youtube.com/embed/${modalPlayItem.resourceId.videoId}`}
+                // type="text/html"
+                src={`https://www.youtube.com/embed/${modalPlayItem?.resourceId.videoId}`}
               />
             </YoutubeContents>
             <PlayItemContents>
-              <YoutubeTitle>{modalPlayItem.title}</YoutubeTitle>
+              <YoutubeTitle>{modalPlayItem?.title}</YoutubeTitle>
               <YoutubeDescription>
-                {modalPlayItem.description}
+                {modalPlayItem?.description}
               </YoutubeDescription>
             </PlayItemContents>
           </YoutubeBox>
