@@ -34,7 +34,7 @@ export default function ContentsList({ modalPlayItem }: ListProps) {
       });
       setContents(newcontents);
     });
-  });
+  }, []);
 
   return (
     <ContentsScroll>
