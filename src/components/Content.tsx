@@ -56,7 +56,6 @@ export default function Content({ item, contents }: ContentProps) {
   };
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  //useState(authService.currentUser);
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
@@ -66,8 +65,6 @@ export default function Content({ item, contents }: ContentProps) {
       }
     });
   });
-
-  //authService.currentUser.uid === item.userId && (드랍박스 보이고)
 
   return (
     <ContentsItem key={item.id}>

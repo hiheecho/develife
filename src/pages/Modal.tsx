@@ -13,7 +13,6 @@ type ModalProps = {
 
 const Modal = ({ closeReleasePopup, modalPlayItem }: ModalProps) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // useState(authService.currentUser); boolean값으로 변해서 false로 바꿈
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
@@ -34,7 +33,6 @@ const Modal = ({ closeReleasePopup, modalPlayItem }: ModalProps) => {
             <YoutubeContents>
               <YoutubePlayer
                 id="ytplayer"
-                // type="text/html"
                 src={`https://www.youtube.com/embed/${modalPlayItem?.resourceId.videoId}`}
               />
             </YoutubeContents>
@@ -100,7 +98,6 @@ const ContentsContainer = styled.div`
   background-color: lightgray;
   width: 45%;
   height: 80%;
-
   border-radius: 16px;
 `;
 const ContentsTitle = styled.div`
@@ -131,8 +128,7 @@ const CloseButton = styled.button`
 `;
 const YoutubeContents = styled.div`
   width: 100%;
-  height: 66%;
-  background-color: aliceblue;
+  height: 62%;
   margin-bottom: 1vh;
 `;
 const YoutubeTitle = styled.p`
@@ -146,9 +142,17 @@ const YoutubePlayer = styled.iframe`
   background-color: #111;
 `;
 const PlayItemContents = styled.div`
-  height: 22vh;
-  overflow: auto;
+  border-radius: 8px;
+  height: 24vh;
+  overflow: hidden;
+  &:hover {
+    overflow: auto;
+  }
 `;
 const YoutubeDescription = styled.div`
+  background-color: #e6e6e6;
   overflow-wrap: break-word;
+  white-space: pre-line;
+  padding: 12px;
+  border-radius: 8px;
 `;
