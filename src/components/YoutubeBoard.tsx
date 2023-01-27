@@ -8,7 +8,59 @@ import Training from './Training';
 import Programing from './Programing';
 import ItItem from './ItItem';
 
-function YoutubeBoard({ category }) {
+type CategoryProps = {
+  category: string;
+};
+export interface Items {
+  items: [
+    {
+      id: string;
+      snippet: {
+        title: string;
+        description: string;
+        thumbnails: {
+          high: {
+            url: string;
+          };
+          maxres: {
+            url: string;
+          };
+        };
+        resourceId: {
+          videoId: string;
+        };
+      };
+    },
+  ];
+}
+export interface Item {
+  id: string;
+  snippet: {
+    title: string;
+    description: string;
+    thumbnails: {
+      high: {
+        url: string;
+      };
+    };
+    resourceId: {
+      videoId: string;
+    };
+  };
+}
+export interface Snippet {
+  title: string;
+  description: string;
+  thumbnails: {
+    high: {
+      url: string;
+    };
+  };
+  resourceId: {
+    videoId: string;
+  };
+}
+function YoutubeBoard({ category }: CategoryProps) {
   const { data: AllPlayList, isLoading: isLoadingAP } = useQuery('All', getAll);
   const { data: HometrainningPlayList, isLoading: isLoadingHP } = useQuery(
     'HomeTrainning',
@@ -26,9 +78,9 @@ function YoutubeBoard({ category }) {
   const isLoading = isLoadingAP || isLoadingHP || isLoadingPG || isLoadingIT;
 
   const [releaseModal, setReleaseModal] = useState(false);
-  const [modalPlayItem, setModalPlayItem] = useState('');
+  const [modalPlayItem, setModalPlayItem] = useState<Snippet | null>(null);
 
-  const clickImg = (snippet) => {
+  const clickImg = (snippet: Snippet) => {
     setReleaseModal(true);
     document.body.style.overflow = 'hidden';
     setModalPlayItem(snippet);
@@ -36,7 +88,7 @@ function YoutubeBoard({ category }) {
 
   const closeReleasePopup = () => {
     setReleaseModal(false);
-    setModalPlayItem('');
+    setModalPlayItem(null);
     document.body.style.overflow = 'unset';
   };
 
@@ -77,7 +129,7 @@ function YoutubeBoard({ category }) {
   }
   return (
     <YoutubeList>
-      {AllPlayList.items.map((item) => (
+      {AllPlayList.items.map((item: Item) => (
         <YoutubeContent key={item.id} item={item} clickImg={clickImg} />
       ))}
       {releaseModal && (

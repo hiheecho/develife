@@ -3,7 +3,7 @@ const BaseURL =
 const API_KEY = String(process.env.REACT_APP_youtube);
 export const getAll = () =>
   fetch(
-    `${BaseURL}PL1V8Ky17d9SudCHJb1F2pHBvIMFBlpfad&maxResults=30&key=${API_KEY}`,
+    `${BaseURL}PL1V8Ky17d9SudCHJb1F2pHBvIMFBlpfad&maxResults=48&key=${API_KEY}`,
   ).then((res) => res.json());
 
 export const getHomeTrainning = () =>

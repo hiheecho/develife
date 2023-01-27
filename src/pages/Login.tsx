@@ -94,7 +94,6 @@ function Login() {
         </InputPasswordContainer>
 
         <LoginButton
-          isdisabled={!isValidateEmail || !isValidatePassword}
           disabled={!isValidateEmail || !isValidatePassword}
           onClick={() => {
             loginEmail();
@@ -193,8 +192,8 @@ const Container = styled.div`
 const LoginButton = styled.button`
   margin-top: 10px;
 
-  background-color: ${({ isdisabled }) =>
-    isdisabled ? 'rgba(248, 47, 98, 0.5)' : 'rgb(248, 47, 98)'};
+  background-color: ${({ disabled }) =>
+    disabled ? 'rgba(248, 47, 98, 0.5)' : 'rgb(248, 47, 98)'};
 
   color: rgb(255, 255, 255);
   font-weight: 700;
@@ -207,7 +206,7 @@ const LoginButton = styled.button`
   height: 48px;
   border: none;
 
-  cursor: ${({ isdisabled }) => (isdisabled ? 'default' : 'pointer')};
+  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
 `;
 
 const InputContainer = styled.div`

@@ -3,11 +3,16 @@ import styled from '@emotion/styled';
 import AddForm from '../components/AddForm';
 import ContentsList from '../components/ContentsList';
 import { authService } from '../firebase';
+import { Snippet } from '../components/YoutubeBoard';
 
-const Modal = ({ closeReleasePopup, modalPlayItem }) => {
+type ModalProps = {
+  modalPlayItem: Snippet | null;
+  closeReleasePopup: () => void;
+};
+
+const Modal = ({ closeReleasePopup, modalPlayItem }: ModalProps) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  // 로그인 확인
+  // useState(authService.currentUser); boolean값으로 변해서 false로 바꿈
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
@@ -16,7 +21,7 @@ const Modal = ({ closeReleasePopup, modalPlayItem }) => {
         setIsLoggedIn(false);
       }
     });
-  }, []);
+  });
 
   return (
     <>
@@ -28,26 +33,21 @@ const Modal = ({ closeReleasePopup, modalPlayItem }) => {
             <YoutubeContents>
               <YoutubePlayer
                 id="ytplayer"
-                type="text/html"
-                src={`https://www.youtube.com/embed/${modalPlayItem.resourceId.videoId}`}
-                allowFullScreen
+                // type="text/html"
+                src={`https://www.youtube.com/embed/${modalPlayItem?.resourceId.videoId}`}
               />
             </YoutubeContents>
             <PlayItemContents>
-              <YoutubeTitle>{modalPlayItem.title}</YoutubeTitle>
-
+              <YoutubeTitle>{modalPlayItem?.title}</YoutubeTitle>
               <YoutubeDescription>
-                {modalPlayItem.description}
+                {modalPlayItem?.description}
               </YoutubeDescription>
             </PlayItemContents>
           </YoutubeBox>
           <ContentsContainer>
             <ContentsTitle>댓글</ContentsTitle>
             <ContentsBox>
-              <ContentsList
-                modalPlayItem={modalPlayItem}
-                isLoggedIn={isLoggedIn}
-              />
+              <ContentsList modalPlayItem={modalPlayItem} />
               {isLoggedIn ? <AddForm modalPlayItem={modalPlayItem} /> : null}
             </ContentsBox>
           </ContentsContainer>
@@ -99,6 +99,7 @@ const ContentsContainer = styled.div`
   background-color: lightgray;
   width: 45%;
   height: 80%;
+
   border-radius: 16px;
 `;
 const ContentsTitle = styled.div`
@@ -129,7 +130,8 @@ const CloseButton = styled.button`
 `;
 const YoutubeContents = styled.div`
   width: 100%;
-  height: 62%;
+  height: 66%;
+  background-color: aliceblue;
   margin-bottom: 1vh;
 `;
 const YoutubeTitle = styled.p`
@@ -143,17 +145,9 @@ const YoutubePlayer = styled.iframe`
   background-color: #111;
 `;
 const PlayItemContents = styled.div`
-  border-radius: 8px;
-  height: 24vh;
-  overflow: hidden;
-  &:hover {
-    overflow: auto;
-  }
+  height: 22vh;
+  overflow: auto;
 `;
 const YoutubeDescription = styled.div`
-  background-color: #e6e6e6;
   overflow-wrap: break-word;
-  white-space: pre-line;
-  padding: 12px;
-  border-radius: 8px;
 `;

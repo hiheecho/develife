@@ -3,11 +3,22 @@ import styled from '@emotion/styled';
 import Content from './Content';
 import { query, collection, onSnapshot, orderBy } from 'firebase/firestore';
 import { dbService } from '../firebase';
+import { Snippet } from './YoutubeBoard';
 
-export default function ContentsList({ modalPlayItem, isLoggedIn }) {
-  const [contents, setContents] = useState([]);
+type ListProps = {
+  modalPlayItem: Snippet | null;
+};
+export type Comment = {
+  id: string;
+  boardId?: string;
+  text?: string;
+  isEdit?: boolean;
+  userName?: string;
+  userId?: string;
+};
 
-  // collection 불러오기
+export default function ContentsList({ modalPlayItem }: ListProps) {
+  const [contents, setContents] = useState<Comment[]>([]);
   useEffect(() => {
     const q = query(
       collection(dbService, 'test'),
@@ -23,13 +34,13 @@ export default function ContentsList({ modalPlayItem, isLoggedIn }) {
       });
       setContents(newcontents);
     });
-  }, []);
+  });
 
   return (
     <ContentsScroll>
       {contents.map((item) => {
-        if (modalPlayItem.resourceId.videoId === item.boardId) {
-          return <Content key={item.id} item={item} isLoggedIn={isLoggedIn} />;
+        if (modalPlayItem?.resourceId.videoId === item.boardId) {
+          return <Content key={item.id} item={item} contents={contents} />;
         }
         return null;
       })}

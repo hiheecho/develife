@@ -1,9 +1,15 @@
 import styled from '@emotion/styled';
 
+type BtnProps = {
+  width: string;
+  height: string;
+  fontSize?: string;
+};
+
 export default styled.button`
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
-  font-size: ${(props) => props.fontSize};
+  width: ${(props: BtnProps) => props.width};
+  height: ${(props: BtnProps) => props.height};
+  font-size: ${(props: BtnProps) => props.fontSize};
   background-color: #656565;
   color: #fff;
   border: none;

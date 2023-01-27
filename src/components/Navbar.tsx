@@ -3,8 +3,14 @@ import styled from '@emotion/styled';
 import Button from './Button';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../firebase';
+import React from 'react';
 
-function Navbar({ category, setCategory }) {
+interface CategoryProps {
+  category: string;
+  setCategory: any;
+}
+
+function Navbar({ category, setCategory }: CategoryProps) {
   const navigate = useNavigate();
   const [isSign, setIsSign] = useState(null);
 
@@ -16,7 +22,7 @@ function Navbar({ category, setCategory }) {
     }
   }, 1000);
 
-  const nowCategoryStyle = {
+  const nowCategoryStyle: React.CSSProperties = {
     borderBottom: '3px solid #fff',
     marginBottom: 0,
     fontWeight: 700,
@@ -40,25 +46,25 @@ function Navbar({ category, setCategory }) {
         <NavMenuList>
           <NavMenu
             onClick={() => setCategory('')}
-            style={category === '' ? nowCategoryStyle : null}
+            style={category === '' ? nowCategoryStyle : undefined}
           >
             Home
           </NavMenu>
           <NavMenu
             onClick={() => setCategory('training')}
-            style={category === 'training' ? nowCategoryStyle : null}
+            style={category === 'training' ? nowCategoryStyle : undefined}
           >
             홈트레이닝
           </NavMenu>
           <NavMenu
             onClick={() => setCategory('programing')}
-            style={category === 'programing' ? nowCategoryStyle : null}
+            style={category === 'programing' ? nowCategoryStyle : undefined}
           >
             프로그래밍
           </NavMenu>
           <NavMenu
             onClick={() => setCategory('review')}
-            style={category === 'review' ? nowCategoryStyle : null}
+            style={category === 'review' ? nowCategoryStyle : undefined}
           >
             IT용품리뷰
           </NavMenu>

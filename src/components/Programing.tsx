@@ -2,6 +2,15 @@ import React from 'react';
 import Modal from '../pages/Modal';
 import YoutubeContent from './YoutubeContent';
 import styled from '@emotion/styled';
+import { Snippet, Items } from './YoutubeBoard';
+
+type CategoryProps = {
+  ProgrammingPlayList: Items;
+  clickImg: (value: Snippet) => void;
+  releaseModal: boolean;
+  modalPlayItem: Snippet | null;
+  closeReleasePopup: () => void;
+};
 
 const Programing = ({
   ProgrammingPlayList,
@@ -9,7 +18,7 @@ const Programing = ({
   releaseModal,
   modalPlayItem,
   closeReleasePopup,
-}) => {
+}: CategoryProps) => {
   return (
     <>
       <CateMainWarpper>

@@ -3,20 +3,26 @@ import styled from '@emotion/styled';
 import { addDoc, collection } from 'firebase/firestore';
 import { authService, dbService } from '../firebase';
 import Button from './Button';
+import { Snippet } from './YoutubeBoard';
 
-export default function AddForm({ modalPlayItem }) {
+type AddProps = {
+  modalPlayItem: Snippet | null;
+};
+
+export default function AddForm({ modalPlayItem }: AddProps) {
   const [contentValue, setContentValue] = useState('');
 
   const newcontent = {
     text: contentValue,
-    userName: authService.currentUser.displayName,
-    userId: authService.currentUser.uid,
-    boardId: modalPlayItem.resourceId.videoId,
+    userName: authService.currentUser?.displayName,
+    userId: authService.currentUser?.uid,
+    isEdit: false,
+    boardId: modalPlayItem?.resourceId.videoId,
     createdAt: Date.now(),
   };
 
   // Content add하기
-  const addContent = async (e) => {
+  const addContent = async (e: React.FormEvent<HTMLFormElement>) => {
     // 새로고침 방지
     e.preventDefault();
     // text좌우공백 제거

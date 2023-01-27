@@ -2,34 +2,43 @@ import React from 'react';
 import Modal from '../pages/Modal';
 import YoutubeContent from './YoutubeContent';
 import styled from '@emotion/styled';
+import { Snippet, Items } from './YoutubeBoard';
 
-const ItItem = ({
-  ItItemPlayList,
+type CategoryProps = {
+  HometrainningPlayList: Items;
+  clickImg: (value: Snippet) => void;
+  releaseModal: boolean;
+  modalPlayItem: Snippet | null;
+  closeReleasePopup: () => void;
+};
+
+const Training = ({
+  HometrainningPlayList,
   clickImg,
   releaseModal,
   modalPlayItem,
   closeReleasePopup,
-}) => {
+}: CategoryProps) => {
   return (
     <>
       <CateMainWarpper>
         <YoutubeBox>
           <YoutubeImg
-            src={`${ItItemPlayList.items[0].snippet.thumbnails.maxres.url}`}
-            alt={`${ItItemPlayList.items[0].snippet.title}`}
-            onClick={() => clickImg(ItItemPlayList.items[0].snippet)}
+            src={`${HometrainningPlayList.items[0].snippet.thumbnails.maxres.url}`}
+            alt={`${HometrainningPlayList.items[0].snippet.title}`}
+            onClick={() => clickImg(HometrainningPlayList.items[0].snippet)}
           />
         </YoutubeBox>
         <DescriptionBox>
-          <DescriptionTitle>요즘 핫한 아이템 뭐가 있지 ?!</DescriptionTitle>
+          <DescriptionTitle>개발자도 체력이 필수 !</DescriptionTitle>
           <DescriptionContent>
-            삶의 질 수직 상승시켜주는 it템 구경하자 !
+            ★ 홈트레이닝 하면서 집에서 체력단련하기 ★
           </DescriptionContent>
         </DescriptionBox>
       </CateMainWarpper>
       <YoutubeList>
-        {ItItemPlayList.items
-          .filter((item) => item.id !== ItItemPlayList.items[0].id)
+        {HometrainningPlayList.items
+          .filter((item) => item.id !== HometrainningPlayList.items[0].id)
           .map((item) => (
             <YoutubeContent key={item.id} item={item} clickImg={clickImg} />
           ))}
@@ -46,7 +55,7 @@ const ItItem = ({
 const YoutubeList = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 35px;
+  grid-gap: 25px;
 `;
 const YoutubeBox = styled.div`
   box-shadow: 0px 0px 10px #fff;
@@ -82,5 +91,4 @@ const DescriptionContent = styled.p`
   text-align: center;
   line-height: 32px;
 `;
-
-export default ItItem;
+export default Training;
